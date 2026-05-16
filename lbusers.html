@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - LibraryMS</title>
+    <link rel="stylesheet" href="lb.css/lbmstyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body>
+    <div id="message" class="message"></div>
+    
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 LibraryMS</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="lbdashboard.html">📊 Dashboard</a></li>
+                <li><a href="lbbooks.html">📚 Books</a></li>
+                <li><a href="lbusers.html" class="active">👥 Users</a></li>
+                <li><a href="lbissues.html">📖 Issue/Return</a></li>
+                <li><a href="lbreports.html">📑 Reports</a></li>
+                <li><a href="#" onclick="logout()">🚪 Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <h1>User Management</h1>
+                <div class="user-controls">
+                    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+                        🌙 Dark Mode
+                    </button>
+                    <div class="user-info">
+                        <span id="userName">Welcome, Admin</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add/Edit User Form -->
+            <div class="card">
+                <h2><span id="formTitle">Add New</span> User</h2>
+                <form id="addUserForm" class="form-grid">
+                    <input type="hidden" id="editUserId">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="addUserName" placeholder="e.g. John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="userEmail" placeholder="e.g. john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="userPhone" placeholder="e.g. +91 9876543210">
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select id="userRole">
+                            <option value="member">Member</option>
+                            <option value="librarian">Librarian</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Password *</label>
+                        <input type="password" id="userPassword" placeholder="Minimum 6 characters">
+                    </div>
+                    <div class="form-group">
+                        <label>Barcode ID</label>
+                        <input type="text" id="userBarcode" placeholder="e.g. STU123456">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea id="userAddress" rows="1" placeholder="City, State"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn-primary">Save User</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Users List -->
+            <div class="card">
+                <h2>👥 Registered Members</h2>
+                <div class="search-container">
+                    <input type="text" id="searchUser" placeholder="Search by name or email...">
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="data-table" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                                <th>Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lb.js/auth.js"></script>
+    <script src="lb.js/users.js"></script>
+</body>
+</html>

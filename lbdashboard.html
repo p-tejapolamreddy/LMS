@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - LibraryMS</title>
+    <link rel="stylesheet" href="lb.css/lbmstyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="message" class="message"></div>
+    
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 LibraryMS</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="lbdashboard.html" class="active">📊 Dashboard</a></li>
+                <li><a href="lbbooks.html">📚 Books</a></li>
+                <li><a href="lblenders.html">🗺️ Local Lenders</a></li>
+                <li><a href="lbusers.html">👥 Users</a></li>
+                <li><a href="lbissues.html">📖 Issue/Return</a></li>
+                <li><a href="lbreports.html">📑 Reports</a></li>
+                <li><a href="#" onclick="logout()">🚪 Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <h1>Dashboard Overview</h1>
+                <div class="user-controls">
+                    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+                        <span id="themeIcon">🌙</span> Dark Mode
+                    </button>
+                    <div class="user-info">
+                        <span id="userName">Welcome, Admin</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-details">
+                        <h3 id="totalBooks">0</h3>
+                        <p>Total Books</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📖</div>
+                    <div class="stat-details">
+                        <h3 id="issuedBooks">0</h3>
+                        <p>Currently Issued</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-details">
+                        <h3 id="totalUsers">0</h3>
+                        <p>Registered Users</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-details">
+                        <h3 id="totalFines">0</h3>
+                        <p>Collected Fines</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid: Charts and Lists -->
+            <div class="dashboard-grid">
+                <!-- Analytics Chart -->
+                <div class="card">
+                    <h2>📈 Issue Trends (Last 7 Days)</h2>
+                    <div class="chart-container" style="position: relative; height: 300px; width: 100%;">
+                        <canvas id="issuesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Activity List -->
+                <div class="card">
+                    <h2>🕒 Recent Issues</h2>
+                    <div id="recentIssuesList">
+                        <!-- Simplified list view for dashboard -->
+                        <table class="data-table" id="recentIssues">
+                            <thead>
+                                <tr>
+                                    <th>Book</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overdue Section -->
+            <div class="card">
+                <h2>⚠️ Critical Overdue Books</h2>
+                <table class="data-table" id="overdueBooks">
+                    <thead>
+                        <tr>
+                            <th>Book</th>
+                            <th>User</th>
+                            <th>Due Date</th>
+                            <th>Fine</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="lb.js/auth.js"></script>
+    <script src="lb.js/dashboard.js"></script>
+</body>
+</html>

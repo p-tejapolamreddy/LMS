@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - LibraryMS</title>
+    <link rel="stylesheet" href="lb.css/lbmstyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body>
+    <div id="message" class="message"></div>
+    
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 LibraryMS</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="lbdashboard.html">📊 Dashboard</a></li>
+                <li><a href="lbbooks.html">📚 Books</a></li>
+                <li><a href="lbusers.html">👥 Users</a></li>
+                <li><a href="lbissues.html">📖 Issue/Return</a></li>
+                <li><a href="lbreports.html" class="active">📑 Reports</a></li>
+                <li><a href="#" onclick="logout()">🚪 Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <h1>Analytics & Reports</h1>
+                <div class="user-controls">
+                    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+                        🌙 Dark Mode
+                    </button>
+                    <div class="user-info">
+                        <span id="userName">Welcome, Admin</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Report Filters -->
+            <div class="card">
+                <h2>📑 Filter Report Data</h2>
+                <form id="reportForm" class="form-grid">
+                    <div class="form-group">
+                        <label>Report Type</label>
+                        <select id="reportType">
+                            <option value="all">All Transactions</option>
+                            <option value="issued">Currently Issued</option>
+                            <option value="overdue">Overdue Only</option>
+                            <option value="returned">Returned Only</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>From Date</label>
+                        <input type="date" id="fromDate">
+                    </div>
+                    <div class="form-group">
+                        <label>To Date</label>
+                        <input type="date" id="toDate">
+                    </div>
+                    <div class="form-group full-width" style="display: flex; gap: 1rem;">
+                        <button type="submit" class="btn-primary" style="width: auto;">Generate Report</button>
+                        <button type="button" class="btn-success" onclick="exportToCSV()" style="width: auto;">Export to CSV</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Report Results -->
+            <div class="card">
+                <h2>📊 Report Results</h2>
+                <div style="overflow-x: auto;">
+                    <table class="data-table" id="reportTable">
+                        <thead>
+                            <tr>
+                                <th>Book</th>
+                                <th>User</th>
+                                <th>Issue Date</th>
+                                <th>Due Date</th>
+                                <th>Return Date</th>
+                                <th>Status</th>
+                                <th>Fine</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lb.js/auth.js"></script>
+    <script src="lb.js/reports.js"></script>
+</body>
+</html>

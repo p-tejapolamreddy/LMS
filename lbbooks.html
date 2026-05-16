@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books - LibraryMS</title>
+    <link rel="stylesheet" href="lb.css/lbmstyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+    <div id="message" class="message"></div>
+    
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 LibraryMS</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="lbdashboard.html">📊 Dashboard</a></li>
+                <li><a href="lbbooks.html" class="active">📚 Books</a></li>
+                <li><a href="lblenders.html">🗺️ Local Lenders</a></li>
+                <li><a href="lbusers.html">👥 Users</a></li>
+                <li><a href="lbissues.html">📖 Issue/Return</a></li>
+                <li><a href="lbreports.html">📑 Reports</a></li>
+                <li><a href="#" onclick="logout()">🚪 Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <h1>Book Management</h1>
+                <div class="user-controls">
+                    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+                        🌙 Dark Mode
+                    </button>
+                    <div class="user-info">
+                        <span id="userName">Welcome, Admin</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add/Edit Book Form -->
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 style="margin: 0;"><span id="formTitle">Add New</span> Book</h2>
+                    <button id="scanIsbnBtn" class="btn-primary" style="background: var(--accent); display: flex; align-items: center; gap: 8px;">
+                        📸 Scan Book ISBN via Camera
+                    </button>
+                </div>
+
+                <!-- Scanner view (Hidden by default) -->
+                <div id="isbnScannerContainer" style="display: none; margin-bottom: 1rem; text-align: center;">
+                    <p style="margin-bottom: 10px; color: var(--text-muted);">Center the barcode in the camera to autofill details.</p>
+                    <div style="position: relative; width: 100%; max-width: 500px; margin: 0 auto; border-radius: 8px; overflow: hidden; border: 2px solid var(--primary);">
+                        <div id="isbnReader" style="width: 100%;"></div>
+                        <div id="isbnScannerLine" class="biometric-scanner-line" style="display: none;"></div>
+                    </div>
+                    <button id="closeScannerBtn" class="btn-login" style="margin-top: 1rem; max-width: 200px; background: var(--danger);">Cancel Scanner</button>
+                </div>
+
+                <form id="addBookForm" class="form-grid">
+                    <input type="hidden" id="editBookId">
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" id="bookTitle" placeholder="e.g. The Great Gatsby" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Author *</label>
+                        <input type="text" id="bookAuthor" placeholder="e.g. F. Scott Fitzgerald" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ISBN *</label>
+                        <input type="text" id="bookIsbn" placeholder="e.g. 9780743273565" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="bookCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="Fiction">Fiction</option>
+                            <option value="Non-Fiction">Non-Fiction</option>
+                            <option value="Science">Science</option>
+                            <option value="Technology">Technology</option>
+                            <option value="History">History</option>
+                            <option value="Literature">Literature</option>
+                            <option value="Biography">Biography</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity *</label>
+                        <input type="number" id="bookQuantity" min="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Shelf Location</label>
+                        <input type="text" id="bookShelf" placeholder="e.g. A1-203">
+                    </div>
+                    <div class="form-group">
+                        <label>Publication Year</label>
+                        <input type="number" id="bookYear" placeholder="e.g. 1925">
+                    </div>
+                    <div class="form-group">
+                        <label>Publisher</label>
+                        <input type="text" id="bookPublisher" placeholder="e.g. Scribner">
+                    </div>
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn-primary">Save Book</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Books List -->
+            <div class="card">
+                <h2>📚 Inventory</h2>
+                <div style="display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 2rem;">
+                    <div class="search-container" style="flex: 1; max-width: 400px; margin-bottom: 0;">
+                        <input type="text" id="searchBook" placeholder="Search by title, author, or ISBN...">
+                    </div>
+                    
+                    <!-- Hidden file input for Photo Search -->
+                    <input type="file" id="photoFileInput" accept="image/*" style="display: none;">
+                    <button id="searchByPhotoBtn" class="btn-primary" style="background: var(--primary); white-space: nowrap; padding: 0.95rem 1.5rem; border-radius: 99px; font-size: 0.95rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">📷 Upload Cover Image</button>
+                </div>
+
+                <!-- Photo Search View (Hidden by default) -->
+                <div id="photoSearchContainer" style="display: none; margin-bottom: 1.5rem; text-align: center; padding: 1rem; background: var(--bg-color); border-radius: 8px; border: 1px dashed var(--border);">
+                    <p style="margin-bottom: 10px; color: var(--text-muted);">Extracting text from the uploaded cover image...</p>
+                    <img id="photoPreview" style="width: 100%; max-width: 400px; border-radius: 8px; border: 2px solid var(--primary); display: none; margin: 0 auto;"/>
+                    <div id="ocrStatus" style="margin-top: 10px; font-weight: 600; color: var(--accent);"></div>
+                    <button id="closePhotoSearchBtn" class="btn-login" style="margin-top: 1rem; max-width: 150px; background: var(--danger); display: none;">Clear Photo</button>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="data-table" id="booksTable">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>ISBN</th>
+                                <th>Category</th>
+                                <th>Total</th>
+                                <th>Available</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="lb.js/auth.js"></script>
+    <script src="lb.js/books.js"></script>
+</body>
+</html>

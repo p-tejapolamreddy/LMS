@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "mo9ljgmxjx6axxx",
+    "name": "Admin",
+    "email": "admin@library.com",
+    "password": "$2a$10$azVcT./nPNSygfypMPkYNOenx7JhR9PICeEAS2q2Dv10VmxDrO92W",
+    "phone": "",
+    "address": "",
+    "role": "admin",
+    "isActive": true,
+    "createdAt": "2026-04-22T05:12:41.721Z",
+    "updatedAt": "2026-04-22T05:12:41.721Z"
+  }
+]

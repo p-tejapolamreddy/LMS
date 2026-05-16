@@ -1,0 +1,17 @@
+[
+  {
+    "_id": "mo9ljqd450l5ld0",
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "isbn": "978-0-7432-7356-5",
+    "category": "Fiction",
+    "quantity": 3,
+    "available": 3,
+    "shelf": "A1",
+    "publisher": "Scribner",
+    "publicationYear": "1925",
+    "description": "",
+    "createdAt": "2026-04-22T05:12:54.328Z",
+    "updatedAt": "2026-04-22T05:12:54.328Z"
+  }
+]
